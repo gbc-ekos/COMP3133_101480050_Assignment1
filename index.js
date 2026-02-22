@@ -10,7 +10,7 @@ const app = express();
 dotenv.config();
 
 const connectDB = async() => {
-    await mongoose.connect(DB_CONNECTION)
+    await mongoose.connect(process.env.MONGO_URL)
 }
 
 async function startServer() {
