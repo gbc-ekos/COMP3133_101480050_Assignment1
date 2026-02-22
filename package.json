@@ -1,4 +1,22 @@
 {
+  "name": "comp3133_101480050_assignment1",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/gbc-ekos/COMP3133_101480050_Assignment1#readme",
+  "bugs": {
+    "url": "https://github.com/gbc-ekos/COMP3133_101480050_Assignment1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gbc-ekos/COMP3133_101480050_Assignment1.git"
+  },
+  "license": "ISC",
+  "author": "Eduard Kosenko",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@apollo/server": "^5.4.0",
     "@as-integrations/express5": "^1.1.2",
@@ -9,5 +27,6 @@
     "graphql": "^16.12.0",
     "graphql-tag": "^2.12.6",
     "mongoose": "^9.2.1"
-  }
+  },
+  "devDependencies": {}
 }
