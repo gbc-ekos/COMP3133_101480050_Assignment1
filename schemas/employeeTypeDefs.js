@@ -7,7 +7,7 @@ const employeeTypeDefs = gql`
     last_name: String!
     email: String!
     gender: String
-    deignation: String
+    designation: String
     salary: Float!
     date_of_joining: String!
     department: String

@@ -3,7 +3,8 @@ import User from '../models/User.js';
 
 const userResolvers = {
   Mutation: {
-    signup: async (_, { username, email, password }) => {
+    signup: async (_, { username, email, password }, { req }) => {
+
       const existing = await User.findOne({ $or: [{ username }, { email }] });
       if (existing) throw new Error('Username or email already in use');
 

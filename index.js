@@ -6,11 +6,20 @@ import mongoose from 'mongoose';
 import { ApolloServer }  from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
 
+import jwt from 'jsonwebtoken';
 import typeDefs from './schemas/schema.js';
 import resolvers from './resolvers/resolvers.js';
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
-dotenv.config();
+dotenv.config({
+  path: __dirname + "/.env",
+});
 
 const connectDB = async() => {
     await mongoose.connect(process.env.MONGO_URL)
@@ -25,7 +34,19 @@ async function startServer() {
       '/graphql', 
       cors(),
       express.json(),
-      expressMiddleware(server)
+      expressMiddleware(server, {
+        context: async ({ req }) => {
+          const authHeader = req.headers.authorization || '';
+          const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+          let user = null;
+          if (token) {
+            try {
+              user = jwt.verify(token, process.env.JWT_SECRET);
+            } catch (_) {}
+          }
+          return { req, user };
+        }
+      })
     );
 
     app.listen(process.env.PORT, () => {
