@@ -6,6 +6,9 @@ import mongoose from 'mongoose';
 import { ApolloServer }  from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
 
+import typeDefs from './schemas/schema.js';
+import resolvers from './resolvers/resolvers.js';
+
 const app = express();
 dotenv.config();
 
@@ -14,9 +17,7 @@ const connectDB = async() => {
 }
 
 async function startServer() {
-    const server = new ApolloServer({
-        // TODO define schema and resolvers
-    });
+    const server = new ApolloServer({ typeDefs, resolvers });
 
     await server.start();
 
