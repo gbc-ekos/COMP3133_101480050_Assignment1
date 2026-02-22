@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 
 import { ApolloServer }  from '@apollo/server';
 import { expressMiddleware } from '@as-integrations/express5';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 
 import jwt from 'jsonwebtoken';
 import typeDefs from './schemas/schema.js';
@@ -26,7 +27,12 @@ const connectDB = async() => {
 }
 
 async function startServer() {
-    const server = new ApolloServer({ typeDefs, resolvers });
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        introspection: true,
+        plugins: [ApolloServerPluginLandingPageLocalDefault({ embed: true })]
+    });
 
     await server.start();
 
