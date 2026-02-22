@@ -21,7 +21,7 @@ const userResolvers = {
       });
       if (!user) throw new Error('Invalid credentials');
 
-      const valid = await bcrypt.compare(password, user.password);
+      const valid = await user.checkPassword(password);
       if (!valid) throw new Error('Invalid credentials');
 
       const token = jwt.sign(
